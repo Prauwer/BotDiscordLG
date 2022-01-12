@@ -9,6 +9,7 @@ class Game:
     nbr_vil = 0
     nbr_loup = 0
     joueurs = []
+    loupGarouHasPlayed = False
 
     def __init__(self, nbr_joueurs):
         if nbr_joueurs <= 8:
@@ -23,6 +24,7 @@ class Game:
         while self.game:
             self.tour += 1
             if self.nuit:
+                self.loupGarouHasPlayed = False
                 self.playNight()
             else:
                 self.playDay()
@@ -36,7 +38,9 @@ class Game:
     def playNight(self):
         for j in self.joueurs:
             if j.getRole().getOrdre() != 0 and j.getIsAlive():
-                if isinstance(j.getRole(), LoupGarou):
+                if isinstance(j.getRole(), LoupGarou) and self.loupGarouHasPlayed:
+                    self.loupGarouHasPlayed = True
+                else:
                     j.playTurn()
 
     def playDay(self):
