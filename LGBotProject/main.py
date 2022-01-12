@@ -2,6 +2,7 @@
 import asyncio
 import os
 from asyncio import sleep
+import jeton
 
 import discord
 from discord.utils import get
@@ -122,5 +123,4 @@ async def on_raw_reaction_add(payload):
 
 
 
-TOKEN = 'OTMwNzMzNTI1MzI0NDA2ODE0.Yd6LJA.Kn7Sl3tyaHeYRmALmqPs_BZGm0w'
-client.run(TOKEN)
+client.run(jeton.TOKEN)
