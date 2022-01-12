@@ -9,5 +9,7 @@ class LoupGarou(Role):
         super(self.ordre)
 
     def playTurn(self, joueurs):
-        #demande du joueur à tuer
-        self.findJoueurById("", joueurs)
+        # demande du joueur à tuer
+        cible = self.findJoueurById("", joueurs)
+        cible.setIsAlive(False)
+        return cible.getId

@@ -11,13 +11,13 @@ class Game:
     joueurs = []
     loupGarouHasPlayed = False
 
-    def __init__(self, nbr_joueurs):
-        if nbr_joueurs <= 8:
-            self.initGame(nbr_joueurs)
+    def __init__(self, id_list):
+        if len(id_list) <= 8:
+            self.initGame(id_list)
 
-    def initGame(self, nbr_joueurs):
-        for i in range(nbr_joueurs):
-            self.joueurs.append(User("name"))
+    def initGame(self, id_list):
+        for i in id_list:
+            self.joueurs.append(User(i))
         self.startGame()
 
     def startGame(self):
@@ -36,12 +36,15 @@ class Game:
         return self.nbr_loup == 0 or self.nbr_loup >= self.nbr_vil
 
     def playNight(self):
+        infos = {"Loups": None, "Sorcière": None, "Cupidon": None, "Chasseur": None, "Voyante": None}
         for j in self.joueurs:
             if j.getRole().getOrdre() != 0 and j.getIsAlive():
-                if isinstance(j.getRole(), LoupGarou) and self.loupGarouHasPlayed:
+                if isinstance(j.getRole(), LoupGarou) and not self.loupGarouHasPlayed:
+                    infos["Loups"] = j.playTurn()
                     self.loupGarouHasPlayed = True
                 else:
-                    j.playTurn()
+                    infos[j.getRole().getNom()] = j.playTurn()
+
 
     def playDay(self):
         vote = []
@@ -62,3 +65,10 @@ class Game:
         for j in self.joueurs:
             if id == j.getId():
                 return j
+
+    def findJoueurByRole(self, role):
+        res = []
+        for j in self.joueurs:
+            if isinstance(j.getRole(), role):
+                res.append(j)
+        return res
