@@ -2,6 +2,8 @@
 import os
 
 import discord
+from discord.utils import get
+
 import random
 
 client = discord.Client()
@@ -12,6 +14,8 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
+
+
 
 @client.event
 async def on_message(message):
@@ -41,12 +45,22 @@ async def on_message(message):
         await message.channel.send(embed=embed)
 
 
-    if message.content == "test":
-        user=message.author
-        print(user)
-        content="Hello"
-        channel = await user.create_dm()
+    if message.content.startswith('test'):
+        username = await client.fetch_user(235341365062402048)
+        print(username)
+        content="Hello world!"
+        channel = await username.create_dm()
         await channel.send(content)
 
-TOKEN = ''
+@client.event
+async def on_raw_reaction_add(payload):
+    print("YO")
+    print(payload.user_id)
+    user=await client.fetch_user(payload.user_id)
+    channel = await user.create_dm()
+    await channel.send("yo")
+
+
+
+TOKEN = 'OTMwNzMzNTI1MzI0NDA2ODE0.Yd6LJA.lPZ7ACFR0RjTsUAlFLMtL8MugPI'
 client.run(TOKEN)
