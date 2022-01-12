@@ -1,5 +1,6 @@
 # bot.py
 import os
+from asyncio import sleep
 
 import discord
 from discord.utils import get
@@ -85,15 +86,35 @@ async def on_message(message):
         channel = await username.create_dm()
         await channel.send(content)
 
+    if message.content =='jouer':
+        embed = discord.Embed(title="Cliquez sur ✅ si vous voulez jouer !",
+                              description="La partie commencera quand il y aura 8 joueurs", color=0xff0000)
+        embed.set_author(name="La partie va commencer")
+        jouer = await message.channel.send(embed=embed)
+        await jouer.add_reaction("✅")
+        await sleep(5)
+        cache_msg = discord.utils.get(client.cached_messages, id=jouer.id)
+
+        print(cache_msg.reactions)
+
+        joueurs =[]
+        i=0
+        for reaction in cache_msg.reactions:
+            async for user in reaction.users():
+                if i!=0 & i<8:
+                    joueurs.append(user)
+                i+=1
+        print (joueurs)
+        for joueur in joueurs:
+            print (joueur.name)
+
+
+
 @client.event
 async def on_raw_reaction_add(payload):
-    print("YO")
-    print(payload.user_id)
-    user=await client.fetch_user(payload.user_id)
-    channel = await user.create_dm()
-    await channel.send("yo")
+    return
 
 
 
-TOKEN = 'OTMwNzMzNTI1MzI0NDA2ODE0.Yd6LJA.lPZ7ACFR0RjTsUAlFLMtL8MugPI'
+TOKEN = ''
 client.run(TOKEN)
