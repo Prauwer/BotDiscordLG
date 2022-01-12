@@ -1,29 +1,38 @@
-# This is a sample Python script.
-
-# Press Maj+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-import discord
+# bot.py
 import os
 
+import discord
+from dotenv import load_dotenv
 
-def print_hi(name):
-    TOKEN = 'OTMwNzMzNTI1MzI0NDA2ODE0.Yd6LJA.ysL4rR9kWF_PqyOiqws92JwpKAU'
+import random
 
-    client = discord.Client()
+load_dotenv()
 
-    @client.event
-    @client.event
-    async def on_ready():
-        print('Logged in as')
-        print(client.user.name)
-        print(client.user.id)
-        print('------')
+client = discord.Client()
 
-    client.run(TOKEN)
+@client.event
+async def on_ready():
+    print('Logged in as')
+    print(client.user.name)
+    print(client.user.id)
+    print('------')
 
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+    brooklyn_99_quotes = [
+        'I\'m the human form of the 💯 emoji.',
+        'Bingpot!',
+        (
+            'Cool. Cool cool cool cool cool cool cool, '
+            'no doubt no doubt no doubt no doubt.'
+        ),
+    ]
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    if message.content == 'fuck lucas':
+        # response = random.choice(brooklyn_99_quotes)
+        await message.channel.send("yes of course")
+
+client.run("OTMwNzMzNTI1MzI0NDA2ODE0.Yd6LJA.AySRZ9topKWYc5-n9rLbIzyEDRc")
