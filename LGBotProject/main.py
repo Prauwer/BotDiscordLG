@@ -2,11 +2,6 @@
 import os
 
 import discord
-from dotenv import load_dotenv
-
-import random
-
-load_dotenv()
 
 client = discord.Client()
 
@@ -35,4 +30,13 @@ async def on_message(message):
         # response = random.choice(brooklyn_99_quotes)
         await message.channel.send("yes of course")
 
-client.run("OTMwNzMzNTI1MzI0NDA2ODE0.Yd6LJA.AySRZ9topKWYc5-n9rLbIzyEDRc")
+@client.event
+async def displayembed(ctx):
+    channel = ctx.message.channel
+    embed=discord.Embed(
+        title="Ordinary Townfolk", url="https://werewolf-the-game.fandom.com/wiki/The_Villagers", 
+        description="The Villagers are a team seeking to kill all of the Werewolves. A Villager is a player character with no abilities, but the Village also includes any role not on the same team of the Werewolves, like the Guard, the Seer, the Witch, and others. Giving the Villagers addition powers, like the Guard or the Masons, tilts the balance toward them. To balance against the Village add roles that hamper them like the Fool or the Hapless Victim. The Village wins if all Werewolves are killed.",
+        color=0xFF5733)
+    await client.send_message(channel, embed=embed)
+
+client.run("OTMwNzMzNTI1MzI0NDA2ODE0.Yd6LJA.PvzRkMRBjyPQWR-IH1am1kfItCk")
