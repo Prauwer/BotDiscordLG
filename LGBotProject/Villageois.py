@@ -9,4 +9,4 @@ class Villageois(Role):
         super(self.ordre)
 
     def playTurn(self):
-        return
+        pass
