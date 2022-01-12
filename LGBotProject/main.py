@@ -89,7 +89,10 @@ async def on_message(message):
         await channel.send(content)
 
     if message.content =='jouer':
-        asyncio.create_task(jouer(message))
+        joueurs = asyncio.create_task(jouer(message))
+
+    if message.content=='chasseur':
+        asyncio.create_task(ChassAction(message.author.id, [317366618986512395,235341365062402048,368416168350056458]))
 
 async def jouer(message):
     embed = discord.Embed(title="Cliquez sur ✅ si vous voulez jouer !",
@@ -105,15 +108,28 @@ async def jouer(message):
     for reaction in cache_msg.reactions:
         async for user in reaction.users():
             if i != 0 & i < 8:
-                joueurs.append(user)
+                joueurs.append(user.id)
             i += 1
-    for joueur in joueurs:
-        print(joueur.name)
 
     if len(joueurs)==8:
         await message.channel.send("C'est bon")
+        return joueurs
     else:
         await message.channel.send("C'est pas bon")
+        return
+
+
+
+async def ChassAction(id, joueurs):
+
+    content = "Veux tu tirer sur "
+    for joueur in joueurs:
+        cible = await client.fetch_user(joueur)
+        if cible.id!=id:
+            content+=cible.name+" ? "
+    username = await client.fetch_user(id)
+    channel = await username.create_dm()
+    await channel.send(content)
 
 
 
