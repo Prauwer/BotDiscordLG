@@ -81,5 +81,5 @@ async def on_message(message):
         channel = await user.create_dm()
         await channel.send(content)
 
-TOKEN = 'OTMwNzMzNTI1MzI0NDA2ODE0.Yd6LJA.Tt2G6io28eCPs6yDynLHCMgcUoE'
+TOKEN = ''
 client.run(TOKEN)
