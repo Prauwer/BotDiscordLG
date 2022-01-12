@@ -1,4 +1,5 @@
 # bot.py
+import asyncio
 import os
 from asyncio import sleep
 
@@ -87,26 +88,31 @@ async def on_message(message):
         await channel.send(content)
 
     if message.content =='jouer':
-        embed = discord.Embed(title="Cliquez sur ✅ si vous voulez jouer !",
-                              description="La partie commencera quand il y aura 8 joueurs", color=0xff0000)
-        embed.set_author(name="La partie va commencer")
-        jouer = await message.channel.send(embed=embed)
-        await jouer.add_reaction("✅")
-        await sleep(5)
-        cache_msg = discord.utils.get(client.cached_messages, id=jouer.id)
+        asyncio.create_task(jouer(message))
 
-        print(cache_msg.reactions)
+async def jouer(message):
+    embed = discord.Embed(title="Cliquez sur ✅ si vous voulez jouer !",
+                          description="La partie commencera dans 60 secondes et prendra les 8 premiers joueurs", color=0xff0000)
+    embed.set_author(name="La partie va commencer")
+    jouer = await message.channel.send(embed=embed)
+    await jouer.add_reaction("✅")
+    await sleep(5)
+    cache_msg = discord.utils.get(client.cached_messages, id=jouer.id)
 
-        joueurs =[]
-        i=0
-        for reaction in cache_msg.reactions:
-            async for user in reaction.users():
-                if i!=0 & i<8:
-                    joueurs.append(user)
-                i+=1
-        print (joueurs)
-        for joueur in joueurs:
-            print (joueur.name)
+    joueurs = []
+    i = 0
+    for reaction in cache_msg.reactions:
+        async for user in reaction.users():
+            if i != 0 & i < 8:
+                joueurs.append(user)
+            i += 1
+    for joueur in joueurs:
+        print(joueur.name)
+
+    if len(joueurs)==8:
+        await message.channel.send("C'est bon")
+    else:
+        await message.channel.send("C'est pas bon")
 
 
 
@@ -116,5 +122,5 @@ async def on_raw_reaction_add(payload):
 
 
 
-TOKEN = ''
+TOKEN = 'OTMwNzMzNTI1MzI0NDA2ODE0.Yd6LJA.Kn7Sl3tyaHeYRmALmqPs_BZGm0w'
 client.run(TOKEN)
