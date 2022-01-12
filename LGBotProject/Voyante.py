@@ -8,5 +8,8 @@ class Voyante(Role):
     def __init__(self):
         super(self.ordre)
 
-    def playTurn(self):
-        return
+    def playTurn(self, joueurs):
+        # demande cible
+        cible = self.findJoueurById(joueurs)
+        affiche = cible.getRole()
+        # afficher affiche

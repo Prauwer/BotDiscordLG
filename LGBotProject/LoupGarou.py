@@ -8,5 +8,6 @@ class LoupGarou(Role):
     def __init__(self):
         super(self.ordre)
 
-    def playTurn(self):
-        return
+    def playTurn(self, joueurs):
+        #demande du joueur à tuer
+        self.findJoueurById("", joueurs)

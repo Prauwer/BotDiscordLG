@@ -8,5 +8,8 @@ class Chasseur(Role):
     def __init__(self):
         super(self.ordre)
 
-    def playTurn(self):
-        return
+    def playTurn(self, joueurs):
+        # demande id
+        cible = self.findJoueurById(joueurs)
+        cible.setIsAlive(False)
+        return cible.getId()
