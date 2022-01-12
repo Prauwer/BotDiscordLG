@@ -2,11 +2,7 @@
 import os
 
 import discord
-from dotenv import load_dotenv
-
 import random
-
-load_dotenv()
 
 client = discord.Client()
 
@@ -31,8 +27,8 @@ async def on_message(message):
         ),
     ]
 
-    if message.content == 'fuck lucas':
+    if message.content == 'EUQINIMOD':
         # response = random.choice(brooklyn_99_quotes)
         await message.channel.send("yes of course")
 
-client.run("OTMwNzMzNTI1MzI0NDA2ODE0.Yd6LJA.AySRZ9topKWYc5-n9rLbIzyEDRc")
+client.run()
