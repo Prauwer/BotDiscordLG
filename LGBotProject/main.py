@@ -113,7 +113,7 @@ async def jouer(message):
     if len(joueurs)==8:
         await message.channel.send("C'est bon")
     else:
-        await message.channel.send("C'est pas bonFSFSDFDS")
+        await message.channel.send("C'est pas bon")
 
 
 
